@@ -1,0 +1,35 @@
+package:
+  id: vulkan-loader
+  name: vulkan-loader
+  version: 1.1.97
+  kind: lib
+  description: |
+    vulkan-loader.
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/vulkan-loader.git
+  version: master
+  commit: 7453b59a6f7f477fb7cf94096a775a0fecd9d98c
+  patch:
+  - '#placeholder'
+  - fix-ftbfs.diff
+variables:
+  extra_args: -DCMAKE_BUILD_TYPE=Release \ -DBUILD_TESTS=OFF \ -DBUILD_WSI_MIR_SUPPORT=OFF
+    \ -DVulkanHeaders_INCLUDE_DIR=../vulkan-headers/include \ -DVulkanRegistry_DIR=../vulkan-headers/registry
+
+build:
+  kind: manual
+  manual:
+    configure: |
+      mkdir build
+      cd build
+      cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+            -DCMAKE_INSTALL_LIBDIR=lib/${TRIPLET} \
+            ${extra_args} ..
+      make ${jobs}
+      make install
