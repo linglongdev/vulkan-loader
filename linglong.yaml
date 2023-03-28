@@ -16,7 +16,6 @@ source:
   version: master
   commit: 7453b59a6f7f477fb7cf94096a775a0fecd9d98c
   patch:
-  - '#placeholder'
   - fix-ftbfs.diff
 variables:
   extra_args: -DCMAKE_BUILD_TYPE=Release \ -DBUILD_TESTS=OFF \ -DBUILD_WSI_MIR_SUPPORT=OFF
